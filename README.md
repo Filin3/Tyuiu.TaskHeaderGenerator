@@ -5,7 +5,7 @@
 1. Берём класс из файла TaskHeaderGenerator.cs
 2. Создаём его экземпляр и передаём аргументы в конструктор класса
    ```csharp
-   TaskHeaderGenerator task = new askHeaderGenerator(
+   TaskHeaderGenerator task = new TaskHeaderGenerator(
             int sprintNumber, // Номер спринта
             string author, // ФИО
             string group, // Группа
