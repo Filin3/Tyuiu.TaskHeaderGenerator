@@ -13,7 +13,7 @@
             int version,
             string condition
             )
-```
+   ```
 3. Для вывода заголовка:
 ```csharp
 task.printHeader();
