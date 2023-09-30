@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace taskNameGenerator
+{
     class TaskHeaderGenerator
     {
         private int sprintNumber;
@@ -9,6 +15,8 @@
         private string condition;
 
         private int maxLineLenght = 75;
+        private string lineStart = "* ";
+        private string lineEnd = " *";
 
         public TaskHeaderGenerator(
             int sprintNumber,
@@ -31,41 +39,38 @@
 
         public void printHeader()
         {
-            Console.Title = $"Спринт #{this.sprintNumber} | Выполнил: {this.author} | {this.group}";
+            Console.Title = $"Спринт #{sprintNumber} | Выполнил: {author} | {group}";
             Console.WriteLine($"" +
-                $"{this.getFulledSeparator()}\n" +
-                $"{this.addDecoration($"Спринт #{this.sprintNumber}")}\n" +
-                $"{this.addDecoration($"Тема: {this.theme}")}\n" +
-                $"{this.addDecoration($"Задание #{this.taskNumber}")}\n" +
-                $"{this.addDecoration($"Вариант #{this.version}")}\n" +
-                $"{this.addDecoration($"Выполнил {this.author} | {this.group}")}\n" +
-                $"{this.getFulledSeparator()}\n" +
-                $"{this.addDecoration("УСЛОВИЕ:")}\n" +
-                $"{this.addDecoration(this.condition)}\n" +
-                $"{this.getEmptySeparator()}\n" +
-                $"{this.getFulledSeparator()}\n" +
-                $"{this.addDecoration("ИСХОДНЫЕ ДАННЫЕ:")}\n" +
-                $"{this.getFulledSeparator()}"
+                $"{getFulledSeparator()}\n" +
+                $"{addDecoration($"Спринт #{sprintNumber}")}\n" +
+                $"{addDecoration($"Тема: {theme}")}\n" +
+                $"{addDecoration($"Задание #{taskNumber}")}\n" +
+                $"{addDecoration($"Вариант #{version}")}\n" +
+                $"{addDecoration($"Выполнил {author} | {group}")}\n" +
+                $"{getFulledSeparator()}\n" +
+                $"{addDecoration("УСЛОВИЕ:")}\n" +
+                $"{addDecoration(condition)}\n" +
+                $"{getEmptySeparator()}\n" +
+                $"{getFulledSeparator()}\n" +
+                $"{addDecoration("ИСХОДНЫЕ ДАННЫЕ:")}\n" +
+                $"{getFulledSeparator()}"
                 );
         }
 
         public void printFooter()
         {
             Console.WriteLine(
-                $"{this.getFulledSeparator()}\n" +
-                $"{this.addDecoration("РЕЗУЛЬТАТ:")}\n" +
-                $"{this.getFulledSeparator()}"
+                $"{getFulledSeparator()}\n" +
+                $"{addDecoration("РЕЗУЛЬТАТ:")}\n" +
+                $"{getFulledSeparator()}"
                 );
         }
 
         private string addDecoration(string line)
         {
-            string lineStart = "* ";
-            string lineEnd = " *";
-
             string result;
 
-            if (calculateLineLength(line) <= this.maxLineLenght)
+            if (calculateLineLength(line) <= maxLineLenght)
             {
                 result = decorateLine(line);
             } else
@@ -80,7 +85,7 @@
                     foreach (string word in words.ToList())
                     {
                         string tempLine = currentLine != "" ? $"{currentLine} {word}" : word;
-                        if (calculateLineLength(tempLine) <= this.maxLineLenght)
+                        if (calculateLineLength(tempLine) <= maxLineLenght)
                         {
                             currentLine = tempLine;
                             words.RemoveAt(0);
@@ -97,26 +102,27 @@
             }
 
             return result;
+        }
 
-            string decorateLine(string line)
-            {
-                string extendString = new String(' ', this.maxLineLenght - calculateLineLength(line));
-                return lineStart + line + extendString + lineEnd;
-            }
+        private string decorateLine(string line)
+        {
+            string extendString = new String(' ', maxLineLenght - calculateLineLength(line));
+            return lineStart + line + extendString + lineEnd;
+        }
 
-            int calculateLineLength(string line)
-            {
-                return lineStart.Length + line.Length + lineEnd.Length;
-            }
+        private int calculateLineLength(string line)
+        {
+            return lineStart.Length + line.Length + lineEnd.Length;
         }
 
         private string getFulledSeparator()
         {
-            return new String('*', this.maxLineLenght);
+            return new String('*', maxLineLenght);
         }
 
         private string getEmptySeparator()
         {
-            return this.addDecoration(" ");
+            return addDecoration(" ");
         }
     }
+}
